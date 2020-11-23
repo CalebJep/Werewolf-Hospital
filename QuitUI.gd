@@ -12,3 +12,7 @@ func _on_MenuButton_pressed():
 
 func _on_QuitButton_pressed():
 	get_tree().quit()
+
+
+func _on_ResumeButton_pressed():
+	queue_free()

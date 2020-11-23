@@ -1,24 +1,21 @@
 extends Control
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 var levelSelect = preload("res://LevelScreen.tscn")
+var intro = preload("res://Intro.tscn")
+var can_click = true
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+	var file = File.new()
+	if file.file_exists(GlobalData.save_game):
+		file.open(GlobalData.save_game, File.READ)
+		GlobalData.MaxLevelEntered = file.get_var()
+		file.close()
 
 func _on_PlayButton_pressed():
-	get_tree().change_scene("res://levels/Level1.tscn")
+	if can_click:
+		add_child(intro.instance())
+		can_click = false
 
 
 func _on_QuitButton_pressed():
@@ -26,5 +23,7 @@ func _on_QuitButton_pressed():
 
 
 func _on_LevelButton_pressed():
-	add_child(levelSelect.instance())
+	if can_click:
+		add_child(levelSelect.instance())
+		can_click = false
 
