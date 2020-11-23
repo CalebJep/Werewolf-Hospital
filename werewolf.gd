@@ -34,9 +34,8 @@ func _physics_process(delta):
 			motion = move_and_slide(transform.x * SPEED)
 		elif !anim_player.is_playing():
 			motion = move_and_slide(transform.x * ATTACK_SPEED)
-		if motion.length_squared() <= 0.01 * SPEED:
-			if !sees_player:
-				new_direction()
+		if motion.length_squared() <= 0.1 * SPEED * SPEED:
+			target_angle = target_angle + PI
 	
 
 func check_for_player():
